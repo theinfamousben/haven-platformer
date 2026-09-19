@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 
-const SPEED = 600.0
+const SPEED = 450.0
 const JUMP_VELOCITY = -700.0
-
+const STARTING_X = 0
+const STARTING_Y = 0
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -21,5 +22,13 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+	loop(delta)
 
 	move_and_slide()
+	
+func loop(delta: float) -> void:
+	if position.y > 10000: die()
+	
+func die() -> void:
+	position = Vector2(STARTING_X, STARTING_Y)
